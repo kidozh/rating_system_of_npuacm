@@ -1,2 +1,8 @@
 # python_NWPU
 西工大的一些小脚本
+代码比较混乱，还请见谅
+原理：https://zh.wikipedia.org/wiki/%E7%AD%89%E7%BA%A7%E5%88%86
+操作都是Excel
+注意Excel里面需要放有student来建立nickname和真实姓名
+还需要有tot来估测每一次的情况...
+每次脚本自动侦测最后一个sheet来给出rating
