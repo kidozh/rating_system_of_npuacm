@@ -1,8 +1,13 @@
 __author__ = 'kido'
+# -*- coding: utf-8 -*-
 import xlrd
 from xlwt import *
 from Contest import *
 import time
+import datetime
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 class xlrfile():
     xlsxfile =  xlrd.open_workbook('Rating.xlsx')
@@ -109,6 +114,149 @@ class xlwtfile():
             print i.rank,i.nickname,i.name,i.newrating,i.oldrating,i.delta
 
         w.save('result.xls')
+
+    def numcolor(self,num):
+        if num>=2600 :
+            return '<th class="r26p">' +str(num)+ '</th>'
+        elif num >=2200:
+            return '<th class="r22p">' +str(num)+ '</th>'
+        elif num >=2000:
+            return '<th class="r20p">' +str(num)+ '</th>'
+        elif num >=1900:
+            return '<th class="r19p">' +str(num)+ '</th>'
+        elif num >=1700:
+            return '<th class="r17p">' +str(num)+ '</th>'
+        elif num >=1500:
+            return '<th class="r15p">' +str(num)+ '</th>'
+        elif num >=1300:
+            return '<th class="r13p">' +str(num)+ '</th>'
+        elif num >=1200:
+            return '<th class="r12p">' +str(num)+ '</th>'
+        else:
+            return '<th class="r12d">' +str(num)+ '</th>'
+
+    def posneg(self,num):
+        if num>=0:
+            return '<th class="cp">' +str(num)+ '</th>'
+        else :
+            return '<th class="cd">' +str(num)+ '</th>'
+
+    def rankcolor(self,rank):
+        if rank<=5:
+            return '<th class="fst">' +str(rank)+ '</th>'
+        elif rank<=21:
+            return '<th class="sec">' +str(rank)+ '</th>'
+        else :
+            return '<th class="trd">' +str(rank)+ '</th>'
+
+    def html(self,list):
+        now = datetime.datetime.now()
+        otherStyleTime = now.strftime("%Y-%m-%d")
+        file = open('Summary@'+otherStyleTime+'.html','w')
+        body = ''
+        head = '''
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset = "utf-8">
+	<title>Board|Contest Rating System</title>
+	<link rel="stylesheet" href="board.css" type="text/css" />
+</head>
+<body><div class="container">
+'''
+        tail = '<div class="footer"><p>Generated '+otherStyleTime+'</p></div></body></html>'
+        tablehead = '''
+        <table id="crsboard">
+		<thead>
+			<th> Rank </th>
+			<th> Nickname </th>
+			<th> Name </th>
+			<th> New Rating </th>
+			<th> Old Rating </th>
+			<th> Change </th>
+		</thead>'''
+        cnt = 0
+        for i in list:
+            if cnt %2==0:
+                body+='<tr class="row1">'
+                if 1 :
+                    body+=self.rankcolor(i.rank)
+                    body+='<th> '+str(i.nickname) +' </th>'
+                    body+='<th> '+(i.name).decode('utf-8') +' </th>'
+                    body+=self.numcolor(int(i.newrating))
+                    body+=self.numcolor(int(i.oldrating))
+                    body+=self.posneg(int(i.delta))
+                body+='</tr>'
+            if cnt %2==1:
+                body+='<tr class="row2">'
+                if 1 :
+                    body+=self.rankcolor(i.rank)
+                    body+='<th> '+str(i.nickname) +' </th>'
+                    body+='<th> '+(i.name) +' </th>'
+                    body+=self.numcolor(int(i.newrating))
+                    body+=self.numcolor(int(i.oldrating))
+                    body+=self.posneg(int(i.delta))
+                body+='</tr>'
+            cnt+=1
+
+        html = head+tablehead+body+tail
+        file.write(html)
+
+
+    def htmlall(self,list):
+        now = datetime.datetime.now()
+        otherStyleTime = now.strftime("%Y-%m-%d %H:%M:%S")
+        file = open('Student.html','w')
+        body = ''
+        head = '''
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset = "utf-8">
+	<title>Board|Contest Rating System</title>
+	<link rel="stylesheet" href="board.css" type="text/css" />
+</head>
+<body><div class="container">
+'''
+        tail = '<div class="footer"><p>Generated '+otherStyleTime+'</p></div></body></html>'
+        tablehead = '''
+        <table id="crsboard">
+		<thead>
+			<th> Rank </th>
+			<th> Nickname </th>
+			<th> Name </th>
+			<th> New Rating </th>
+			<th> Old Rating </th>
+			<th> Change </th>
+		</thead>'''
+        cnt = 1
+        for i in list:
+            if cnt %2==0:
+                body+='<tr class="row1">'
+                if 1 :
+                    body+=self.rankcolor(cnt)
+                    body+='<th> '+str(i.nickname) +' </th>'
+                    body+='<th> '+(i.name) +' </th>'
+                    body+=self.numcolor(int(i.newrating))
+                    body+=self.numcolor(int(i.oldrating))
+                    body+=self.posneg(int(i.delta))
+                body+='</tr>'
+            if cnt %2==1:
+                body+='<tr class="row2">'
+                if 1 :
+                    body+=self.rankcolor(cnt)
+                    body+='<th> '+str(i.nickname) +' </th>'
+                    body+='<th> '+(i.name) +' </th>'
+                    body+=self.numcolor(int(i.newrating))
+                    body+=self.numcolor(int(i.oldrating))
+                    body+=self.posneg(int(i.delta))
+                body+='</tr>'
+            cnt+=1
+
+        html = head+tablehead+body+tail
+        file.write(html)
+
+
+
+
 
     def wrtall(self,list):
         w = Workbook()

@@ -16,7 +16,8 @@ for (i,j) in a.map.items():
 b = xlwtfile(1,2,3,4,5)
 b.wrtxls(a.res)
 b.wrtall(a.tot)
-
+b.html(a.res)
+b.htmlall(a.tot)
 
 for i in a.tot:
     print i.nickname,i.name,i.oldrating,i.newrating
