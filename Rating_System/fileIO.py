@@ -61,6 +61,7 @@ class xlrfile():
                 name = tmptable.cell(i,0).value
             except BaseException:
                 print 'Error : the excel file may be destroyed or total sheet does not exist '
+                raise 'Error : Excel file may not be existed , please check '+__file__+'/Rating.xlsx'
             dict[name]=oldrating
 
         return dict
@@ -177,25 +178,25 @@ class xlwtfile():
         cnt = 0
         for i in list:
             if cnt %2==0:
-                body+='<tr class="row1">'
+                body+='<tr class="row1">'+'\n'
                 if 1 :
                     body+=self.rankcolor(i.rank)
-                    body+='<th> '+str(i.nickname) +' </th>'
-                    body+='<th> '+(i.name).decode('utf-8') +' </th>'
-                    body+=self.numcolor(int(i.newrating))
-                    body+=self.numcolor(int(i.oldrating))
-                    body+=self.posneg(int(i.delta))
-                body+='</tr>'
+                    body+='<th> '+str(i.nickname) +' </th>\n'
+                    body+='<th> '+(i.name).decode('utf-8') +' </th>\n'
+                    body+=self.numcolor(int(i.newrating))+'\n'
+                    body+=self.numcolor(int(i.oldrating))+'\n'
+                    body+=self.posneg(int(i.delta))+'\n'
+                body+='</tr>'+'\n'
             if cnt %2==1:
-                body+='<tr class="row2">'
+                body+='<tr class="row2">'+'\n'
                 if 1 :
                     body+=self.rankcolor(i.rank)
-                    body+='<th> '+str(i.nickname) +' </th>'
-                    body+='<th> '+(i.name) +' </th>'
-                    body+=self.numcolor(int(i.newrating))
-                    body+=self.numcolor(int(i.oldrating))
-                    body+=self.posneg(int(i.delta))
-                body+='</tr>'
+                    body+='<th> '+str(i.nickname) +' </th>'+'\n'
+                    body+='<th> '+(i.name) +' </th>'+'\n'
+                    body+=self.numcolor(int(i.newrating))+'\n'
+                    body+=self.numcolor(int(i.oldrating))+'\n'
+                    body+=self.posneg(int(i.delta))+'\n'
+                body+='</tr>'+'\n'
             cnt+=1
 
         html = head+tablehead+body+tail
