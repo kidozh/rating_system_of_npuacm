@@ -1,6 +1,5 @@
 # python_NWPU
-西工大的一些小脚本</br>
-代码比较混乱，还请见谅</br>
+西工大ACM积分天梯系统</br>
 原理：https://zh.wikipedia.org/wiki/%E7%AD%89%E7%BA%A7%E5%88%86</br>
 操作的数据，输入数据基于xlsx，输出数据基于HTML和xls</br>
 注意Excel里面需要放有student来建立nickname和真实姓名</br>
